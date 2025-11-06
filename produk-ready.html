@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>PRODUK READY</title>
+  <meta name="description" content="Produk Ready. Silahkan di Order Juragan!">
+  <style>
+    :root{
+      --bg:#06110a;
+      --text:#eaffea;
+      --green:#27ff7b;
+      --accent:#7bffcf;
+      --btn:#14cf6a;
+      --btn2:#10a95a;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:radial-gradient(1200px 1200px at 50% 80%, #0b2514, var(--bg));
+      color:var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      overflow:hidden;
+    }
+    /* Confetti ringan */
+    .confetti{position:fixed; inset:0; pointer-events:none; overflow:hidden}
+    .piece{
+      position:absolute; width:8px; height:14px; opacity:.8; border-radius:2px;
+      background: linear-gradient(180deg, var(--green), var(--accent));
+      animation: fall linear infinite;
+      box-shadow: 0 0 8px rgba(39,255,123,.6);
+    }
+    @keyframes fall{
+      0%{ transform: translateY(-10vh) rotate(0deg); }
+      100%{ transform: translateY(110vh) rotate(360deg); }
+    }
+
+    /* Layout */
+    .wrap{
+      position:relative; z-index:1; height:100%;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:28px; padding:24px; text-align:center;
+    }
+
+    /* Teks utama dengan efek shine */
+    .title{
+      text-transform:uppercase; font-weight:900; line-height:1.04;
+      font-size: clamp(38px, 9vw, 92px);
+      letter-spacing:.04em;
+      background: linear-gradient(90deg, #fff, #c4ffd9, #66ffc2, #fff);
+      background-size: 300% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
+      animation: shine 3.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 14px rgba(39,255,123,.35));
+    }
+    @keyframes shine{
+      0%,100%{ background-position: 0% 50% }
+      50%{ background-position: 100% 50% }
+    }
+
+    .subtitle{
+      font-size: clamp(18px, 4.5vw, 28px);
+      color:#caffdf; opacity:.9; font-weight:700; letter-spacing:.02em;
+      text-shadow: 0 0 16px rgba(39,255,123,.25);
+    }
+
+    /* Tombol CTA */
+    .cta{
+      display:inline-block; text-decoration:none; color:white; font-weight:800;
+      padding:14px 22px; border-radius:14px; letter-spacing:.02em;
+      background: linear-gradient(180deg, var(--btn), var(--btn2));
+      box-shadow: 0 8px 24px rgba(20,207,106,.35), 0 0 22px rgba(39,255,123,.35) inset;
+      transform: translateY(0); transition: transform .15s ease, filter .2s ease;
+      font-size: clamp(16px, 4.5vw, 20px);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    .cta:hover{ transform: translateY(-2px); filter: brightness(1.05); }
+    .cta:active{ transform: translateY(0); }
+
+    @keyframes pulse{
+      0%,100%{ box-shadow: 0 8px 24px rgba(20,207,106,.35), 0 0 22px rgba(39,255,123,.35) inset; }
+      50%{ box-shadow: 0 12px 32px rgba(20,207,106,.55), 0 0 34px rgba(39,255,123,.55) inset; }
+    }
+
+    /* Badge kecil */
+    .badge{
+      position:absolute; top:16px; right:16px; font-size:12px; font-weight:800;
+      letter-spacing:.08em; padding:6px 10px; border-radius:999px;
+      background: rgba(39,255,123,.16); color:#baffd3; border:1px solid rgba(39,255,123,.35);
+      text-transform:uppercase;
+    }
+
+    /* Aksesibilitas */
+    @media (prefers-reduced-motion: reduce){
+      .title,.cta{ animation:none }
+      .piece{ animation-duration: 8s }
+    }
+  </style>
+</head>
+<body>
+  <div class="badge">Produk Ready</div>
+
+  <div class="wrap">
+    <div class="title">Produk Ready</div>
+    <div class="subtitle">Silahkan di Order, Juragan! 🎉</div>
+
+    <!-- GANTI href di bawah dengan link toko/WhatsApp-mu -->
+    <a class="cta" href="https://wa.me/6285643838017?text=Halo%20min,%20saya%20mau%20order%20produk%20yang%20ready%20ya"
+       target="_blank" rel="noopener">ORDER SEKARANG</a>
+  </div>
+
+  <!-- Confetti generator -->
+  <div class="confetti" id="confetti"></div>
+  <script>
+    (function(){
+      const el = document.getElementById('confetti');
+      const pieces = 90;  // tambah/kurangi jumlah confetti
+      for(let i=0;i<pieces;i++){
+        const p=document.createElement('div');
+        p.className='piece';
+        const left = Math.random()*100; // persen
+        const delay = Math.random()*3;  // detik
+        const dur = 4 + Math.random()*3; // detik
+        const w = 6 + Math.random()*8;   // px
+        const h = 10 + Math.random()*18; // px
+        p.style.left = left + 'vw';
+        p.style.animationDuration = dur + 's';
+        p.style.animationDelay = delay + 's';
+        p.style.width = w + 'px';
+        p.style.height = h + 'px';
+        p.style.opacity = .6 + Math.random()*.4;
+        el.appendChild(p);
+      }
+    })();
+  </script>
+</body>
+</html>
