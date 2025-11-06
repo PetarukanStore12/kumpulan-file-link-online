@@ -7,7 +7,7 @@
 <style>
   body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #f3f4f6, #e9ecf3);
+    background: linear-gradient(135deg, #dfe9f3 0%, #ffffff 100%);
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -15,29 +15,29 @@
     align-items: center;
     height: 100vh;
     text-align: center;
-    color: #333;
+    color: #222;
     overflow: hidden;
   }
 
   .emoji {
-    font-size: 45px;
-    margin-bottom: 15px;
+    font-size: 60px;
+    margin-bottom: 20px;
     animation: float 3s ease-in-out infinite;
   }
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+    50% { transform: translateY(-10px); }
   }
 
   .typewriter {
     font-size: 20px;
     font-weight: 600;
-    border-right: 3px solid #555;
     white-space: nowrap;
     overflow: hidden;
+    border-right: 3px solid #444;
     width: 0;
-    animation: typing 6s steps(60, end) forwards, blink 0.75s step-end infinite;
+    animation: typing 5s steps(60, end) forwards, blink 0.8s step-end infinite;
   }
 
   @keyframes typing {
@@ -55,17 +55,30 @@
     left: 0;
     width: 100%;
     background: #e0e0e0;
-    color: #555;
+    color: #444;
     text-align: center;
-    padding: 8px 0;
+    padding: 10px 0;
     font-size: 13px;
+    letter-spacing: .5px;
+  }
+
+  /* animasi fade-in teks */
+  .fadein {
+    animation: fadein 1.5s ease forwards;
+  }
+
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 </style>
 </head>
 <body>
 
-  <div class="emoji">🎥</div>
-  <div class="typewriter">Video Tutorialnya Sedang dibuat dulu ya kak. Silahkan Bisa cek secara berkala. Terimakasih 🙏</div>
+  <div class="emoji fadein">🎬</div>
+  <div class="typewriter fadein">
+    Video Tutorialnya Sedang dibuat dulu ya kak. Silahkan Bisa cek secara berkala. Terimakasih 🙏
+  </div>
 
   <footer>© 2025 Petarukan Store | Kuota Murah, Aman & Terpercaya</footer>
 
