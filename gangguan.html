@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>PRODUK SEDANG GANGGUAN</title>
+  <meta name="description" content="Produk sedang gangguan. Mohon tunggu sebentar.">
+  <style>
+    :root{
+      --bg:#050611;
+      --fg:#f6e7ff;
+      --neon:#ff46d9;
+      --cyan:#38e0ff;
+      --muted:#0b1022;
+      --size-mobile: clamp(28px, 8vw, 46px);
+      --bar-h: 18px;
+      --pad: 22px;
+    }
+
+    /* Reset */
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      overflow:hidden;
+    }
+
+    /* Latar belakang: scanline + noise halus */
+    .layer{
+      position:fixed; inset:0; pointer-events:none; opacity:.10;
+      background:
+        repeating-linear-gradient( to bottom, rgba(255,255,255,.06) 0 1px, transparent 1px 3px );
+      mix-blend-mode:screen;
+    }
+    .noise{
+      position:fixed; inset:0; pointer-events:none; opacity:.06;
+      background-image: radial-gradient(transparent 0 50%, #000 51%),
+        radial-gradient(rgba(255,255,255,.25) 1px, transparent 1px);
+      background-size: 100% 100%, 3px 3px;
+      animation: flutter 4s linear infinite;
+    }
+    @keyframes flutter{ to{ transform:translate3d(0,0,0) rotate(.001deg); } }
+
+    /* Layout */
+    .wrap{
+      position:relative; z-index:1; height:100%;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:28px; padding:var(--pad);
+      text-align:center;
+    }
+
+    /* Teks glitch */
+    .title{
+      line-height:1.05; letter-spacing:.04em; font-weight:800;
+      text-transform:uppercase; font-size: clamp(38px, 9vw, 92px);
+      filter: drop-shadow(0 0 12px rgba(255,70,217,.35));
+      position:relative; display:inline-block;
+    }
+    .title .g{
+      position:relative; display:block;
+    }
+    .title .g::before,
+    .title .g::after{
+      content: attr(data-text);
+      position:absolute; inset:0;
+      clip-path: inset(0 0 0 0 round 2px);
+      mix-blend-mode:screen;
+    }
+    .title .g::before{ color: var(--cyan); transform: translate3d(-2px,0,0); }
+    .title .g::after { color: var(--neon); transform: translate3d(2px,0,0); }
+
+    /* pecah-pecah berganti (glitch) */
+    @keyframes glitch-shift {
+      0%, 100% { transform: translate(0) }
+      10%{ transform: translate(-1px, 0) }
+      20%{ transform: translate(1px, .5px) }
+      30%{ transform: translate(-.5px, -1px) }
+      40%{ transform: translate(.5px, 1px) }
+      50%{ transform: translate(-1px, 0) }
+      60%{ transform: translate(1px, -1px) }
+      70%{ transform: translate(-.5px, .5px) }
+      80%{ transform: translate(.5px, 0) }
+      90%{ transform: translate(-.5px, -.5px) }
+    }
+    .title, .title .g::before, .title .g::after{
+      animation: glitch-shift 2s steps(20) infinite;
+    }
+
+    /* Loading bar */
+    .bar{
+      width:min(520px, 86vw); height:calc(var(--bar-h) + 6px);
+      background: linear-gradient(180deg, #0b1329, #0a0f20);
+      border-radius: 999px; padding:3px; position:relative;
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.06),
+        0 0 22px rgba(56,224,255,.18);
+    }
+    .bar::before{
+      /* track glow */
+      content:""; position:absolute; inset:-14px -10px; border-radius:999px;
+      background: radial-gradient(ellipse at 30% 50%, rgba(56,224,255,.10), transparent 45%),
+                  radial-gradient(ellipse at 70% 50%, rgba(255,70,217,.10), transparent 45%);
+      filter: blur(6px);
+    }
+    .fill{
+      height: var(--bar-h);
+      background:
+        linear-gradient(90deg, rgba(56,224,255,.6), rgba(255,70,217,.7)),
+        repeating-linear-gradient( -45deg, rgba(255,255,255,.12) 0 6px, transparent 6px 12px );
+      border-radius:999px;
+      box-shadow: 0 0 16px rgba(56,224,255,.55), 0 0 30px rgba(255,70,217,.35);
+      width:12%;
+      animation: load 2.4s cubic-bezier(.4,.0,.2,1) infinite;
+    }
+    @keyframes load{
+      0%   { width:12%; transform: translateX(0); }
+      40%  { width:56%; transform: translateX(0); }
+      70%  { width:86%; transform: translateX(0); }
+      85%  { width:86%; transform: translateX(0); }
+      100% { width:12%; transform: translateX(calc(100% - 12%)); }
+    }
+
+    .hint{
+      font-size: var(--size-mobile);
+      color:#b7c8ff; opacity:.75; letter-spacing:.02em;
+      text-transform:uppercase; font-weight:700;
+    }
+
+    /* Aksesibilitas: kurangi animasi jika user memilih reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .title, .title .g::before, .title .g::after, .fill{ animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="title">
+      <span class="g" data-text="PRODUK">PRODUK</span>
+      <span class="g" data-text="SEDANG">SEDANG</span>
+      <span class="g" data-text="GANGGUAN">GANGGUAN</span>
+    </div>
+
+    <div class="bar" aria-label="Memuat status">
+      <div class="fill" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+
+    <div class="hint">Mohon tunggu, kami sedang memperbaiki.</div>
+  </div>
+
+  <div class="layer"></div>
+  <div class="noise"></div>
+</body>
+</html>
